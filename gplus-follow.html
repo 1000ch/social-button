@@ -1,0 +1,99 @@
+<script src="https://apis.google.com/js/plusone.js" async></script>
+
+<script>
+  window.GooglePlusFollow = (function () {
+
+    var currentScript = document.currentScript;
+    var ownerDocument = currentScript.ownerDocument;
+    var GooglePlusFollowPrototype = Object.create(HTMLElement.prototype);
+
+    Object.defineProperty(GooglePlusFollowPrototype, 'width', {
+      configurable: false,
+      enumerable: false,
+      get: function () {
+        return this.getAttribute('width') || 300;
+      },
+      set: function (newValue) {
+        this.setAttribute('width', newValue);
+      }
+    });
+
+    Object.defineProperty(GooglePlusFollowPrototype, 'height', {
+      configurable: false,
+      enumerable: false,
+      get: function () {
+        return this.getAttribute('height') || 20;
+      },
+      set: function (newValue) {
+        this.setAttribute('height', newValue);
+      }
+    });
+
+    Object.defineProperty(GooglePlusFollowPrototype, 'annotation', {
+      configurable: false,
+      enumerable: false,
+      get: function () {
+        return this.getAttribute('annotation') || 'bubble';
+      },
+      set: function (newValue) {
+        this.setAttribute('annotation', newValue);
+      }
+    });
+
+    Object.defineProperty(GooglePlusFollowPrototype, 'href', {
+      configurable: false,
+      enumerable: false,
+      get: function () {
+        return this.getAttribute('href') || '';
+      },
+      set: function (newValue) {
+        this.setAttribute('href', newValue);
+      }
+    });
+
+    Object.defineProperty(GooglePlusFollowPrototype, 'size', {
+      configurable: false,
+      enumerable: false,
+      get: function () {
+        return this.getAttribute('size') || 'standard';
+      },
+      set: function (newValue) {
+        this.setAttribute('size', newValue);
+      }
+    });
+
+    Object.defineProperty(GooglePlusFollowPrototype, 'rel', {
+      configurable: false,
+      enumerable: false,
+      get: function () {
+        return this.getAttribute('rel') || '';
+      },
+      set: function (newValue) {
+        this.setAttribute('rel', newValue);
+      }
+    });
+
+    GooglePlusFollowPrototype.createdCallback = function () {
+
+      var div = document.createElement('div');
+      div.className = 'g-follow';
+      div.setAttribute("data-annotation", this.annotation);
+      div.setAttribute("data-href", this.href);
+      div.setAttribute("data-rel", this.rel);
+      div.setAttribute("data-size", this.size);
+      div.setAttribute("data-width", this.width);
+      div.setAttribute("data-height", this.height);
+
+      this.appendChild(div);
+    };
+
+    GooglePlusFollowPrototype.attributeChangedCallback = function (attributeName, oldValue, newValue) {
+      var div = this.querySelector('div');
+      div.setAttribute('data-' + attributeName, newValue);
+    };
+
+    return document.registerElement('gplus-follow', {
+      prototype: GooglePlusFollowPrototype
+    });
+  })();
+</script>

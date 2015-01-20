@@ -1,0 +1,22 @@
+{
+  "name": "social-button",
+  "version": "0.1.0",
+  "authors": [
+    "1000ch <shogo.sensui@gmail.com>"
+  ],
+  "description": "Social Buttons as Web Components",
+  "main": "social-button.html",
+  "keywords": [
+    "web-components",
+    "WebComponents"
+  ],
+  "license": "MIT",
+  "homepage": "http://github.com/1000ch/social-button",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

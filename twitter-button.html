@@ -1,0 +1,140 @@
+<template id="twitter-button-template">
+  <style>
+    :host {
+      display: inline;
+    }
+  </style>
+  <iframe allowtransparency="true" frameborder="0" scrolling="no"></iframe>
+</template>
+
+<script>
+  window.TwitterButton = (function () {
+
+    var currentScript = document.currentScript;
+    var ownerDocument = currentScript.ownerDocument;
+    var TwitterButtonPrototype = Object.create(HTMLElement.prototype);
+
+    Object.defineProperty(TwitterButtonPrototype, 'width', {
+      configurable: false,
+      enumerable: false,
+      get: function () {
+        return this.getAttribute('width');
+      },
+      set: function (newValue) {
+        this.setAttribute('width', newValue);
+      }
+    });
+
+    Object.defineProperty(TwitterButtonPrototype, 'height', {
+      configurable: false,
+      enumerable: false,
+      get: function () {
+        return this.getAttribute('height');
+      },
+      set: function (newValue) {
+        this.setAttribute('height', newValue);
+      }
+    });
+
+    Object.defineProperty(TwitterButtonPrototype, 'type', {
+      configurable: false,
+      enumerable: false,
+      get: function () {
+        return this.getAttribute('type') || '';
+      },
+      set: function (newValue) {
+        this.setAttribute('type', newValue);
+      }
+    });
+
+    Object.defineProperty(TwitterButtonPrototype, 'hashtag', {
+      configurable: false,
+      enumerable: false,
+      get: function () {
+        return this.getAttribute('hashtag') || '';
+      },
+      set: function (newValue) {
+        this.setAttribute('hashtag', newValue);
+      }
+    });
+
+    Object.defineProperty(TwitterButtonPrototype, 'href', {
+      configurable: false,
+      enumerable: false,
+      get: function () {
+        return this.getAttribute('href') || '';
+      },
+      set: function (newValue) {
+        this.setAttribute('href', newValue);
+      }
+    });
+
+    Object.defineProperty(TwitterButtonPrototype, 'text', {
+      configurable: false,
+      enumerable: false,
+      get: function () {
+        return this.getAttribute('text') || '';
+      },
+      set: function (newValue) {
+        this.setAttribute('text', newValue);
+      }
+    });
+
+    Object.defineProperty(TwitterButtonPrototype, 'user', {
+      configurable: false,
+      enumerable: false,
+      get: function () {
+        return this.getAttribute('user') || '';
+      },
+      set: function (newValue) {
+        this.setAttribute('user', newValue);
+      }
+    });
+
+    TwitterButtonPrototype.createdCallback = function () {
+      this.shadowRoot = this.createShadowRoot();
+      var template = ownerDocument.querySelector('#twitter-button-template');
+      var clone = document.importNode(template.content, true);
+      this.shadowRoot.appendChild(clone);
+    };
+
+    TwitterButtonPrototype.attachedCallback = function () {
+      var iframe = this.shadowRoot.querySelector('iframe');
+      iframe.width = this.width + 'px';
+      iframe.height = this.height + 'px';
+      iframe.src = this.getInlineFrameSource();
+    };
+
+    TwitterButtonPrototype.attributeChangedCallback = function (attributeName, oldValue, newValue) {
+      var iframe = this.shadowRoot.querySelector('iframe');
+      if (attributeName === 'width' || attributeName === 'height') {
+        iframe[attributeName] = newValue + 'px';
+      } else {
+        iframe.src = this.getInlineFrameSource();
+      }
+    };
+
+    TwitterButtonPrototype.getInlineFrameSource = function () {
+      var src = '';
+      switch (this.type) {
+        case 'follow':
+          src = 'https://platform.twitter.com/widgets/follow_button.html?screen_name=' + this.user;
+          break;
+        case 'share':
+          src = 'http://platform.twitter.com/widgets/tweet_button.html?url=' + this.href + '&via=' + this.user + '&text=' + this.text;
+          break;
+        case 'hashtag':
+          src = 'https://platform.twitter.com/widgets/tweet_button.html?text='+ this.text + '&button_hashtag=' + this.hashtag + '&type=hashtag';
+          break;
+        case 'mention':
+          src = 'https://platform.twitter.com/widgets/tweet_button.html?screen_name=' + this.user + '&type=mention';
+          break;
+      }
+      return decodeURIComponent(src);
+    };
+
+    return document.registerElement('twitter-button', {
+      prototype: TwitterButtonPrototype
+    });
+  })();
+</script>
