@@ -1,4 +1,4 @@
-# `<social-button>`
+# [`<social-button>`](http://1000ch.github.io/social-button)
 
 ## Install
 
