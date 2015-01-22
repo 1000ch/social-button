@@ -44,6 +44,46 @@ Or you can load custom elements individually.
 <link rel="import" href="gplus-one.html">
 ```
 
+## Twitter Button
+
+```html
+<twitter-button>
+```
+
+- `type` **follow** / **share** / **hashtag** / **mention**
+- `width`
+- `height`
+- `user`
+- `text`
+- `hashtag`
+
+## Facebook Button
+
+```html
+<facebook-button>
+```
+
+- `layout` **standard** / **box_count**
+- `width`
+- `height`
+- `href` URL to like or share.
+
+## Google Plus One
+
+```html
+<gplus-one>
+```
+
+- `href` URL to plus one.
+
+## Google Plus Follow
+
+```html
+<gplus-follow>
+```
+
+- `href` URL to follow.
+
 ## License
 
 MIT: http://1000ch.mit-license.org
