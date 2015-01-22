@@ -25,14 +25,14 @@ Import `social-button.html`.
 Put tags such as following.
 
 ```html
-<twitter-button type="follow" user="1000ch"></twitter-button>
-<twitter-button type="share" user="1000ch" href="http://github.com/1000ch/social-button" text="Social Button as Web Components"></twitter-button>
-<twitter-button type="hashtag" text="Social Button as Web Components" hashtag="webcomponents"></twitter-button>
-<twitter-button type="mention" user="1000ch"></twitter-button>
-<facebook-button href="http://1000ch.net" layout="box_count" height="80"></facebook-button>
-<facebook-button href="http://1000ch.net" layout="standard"  height="50" width="250"></facebook-button>
+<twitter-button type="follow" width="200" height="30" user="1000ch"></twitter-button>
+<twitter-button type="share" width="80" height="30" user="1000ch" href="http://github.com/1000ch/social-button" text="Social Button as Web Components"></twitter-button>
+<twitter-button type="hashtag" width="160" height="30" text="Social Button as Web Components" hashtag="webcomponents"></twitter-button>
+<twitter-button type="mention" width="120" height="30" user="1000ch"></twitter-button>
+<facebook-button href="http://1000ch.net" layout="standard" width="50" height="30"></facebook-button>
+<facebook-button href="http://1000ch.net" layout="standard" width="250" height="30"></facebook-button>
 <gplus-one href="http://1000ch.net" lang="en-US"></gplus-one>
-<gplus-follow href="https://plus.google.com/+ShogoSensui" lang="en-US"></gplus-follow>
+<gplus-follow href="https://plus.google.com/u/0/+ShogoSensui" lang="en-US"></gplus-follow>
 ```
 
 Or you can load custom elements individually.
