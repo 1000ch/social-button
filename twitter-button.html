@@ -10,9 +10,9 @@
 <script>
   window.TwitterButton = (function () {
 
-    var currentScript = document.currentScript;
-    var ownerDocument = currentScript.ownerDocument;
-    var TwitterButtonPrototype = Object.create(HTMLElement.prototype);
+    const currentScript = document.currentScript;
+    const ownerDocument = currentScript.ownerDocument;
+    const TwitterButtonPrototype = Object.create(HTMLElement.prototype);
 
     Object.defineProperty(TwitterButtonPrototype, 'width', {
       configurable: false,
@@ -93,20 +93,20 @@
 
     TwitterButtonPrototype.createdCallback = function () {
       this.shadowRoot = this.createShadowRoot();
-      var template = ownerDocument.querySelector('#twitter-button-template');
-      var clone = document.importNode(template.content, true);
+      const template = ownerDocument.querySelector('#twitter-button-template');
+      const clone = document.importNode(template.content, true);
       this.shadowRoot.appendChild(clone);
     };
 
     TwitterButtonPrototype.attachedCallback = function () {
-      var iframe = this.shadowRoot.querySelector('iframe');
+      const iframe = this.shadowRoot.querySelector('iframe');
       iframe.width = this.width + 'px';
       iframe.height = this.height + 'px';
       iframe.src = this.getInlineFrameSource();
     };
 
     TwitterButtonPrototype.attributeChangedCallback = function (attributeName, oldValue, newValue) {
-      var iframe = this.shadowRoot.querySelector('iframe');
+      const iframe = this.shadowRoot.querySelector('iframe');
       if (attributeName === 'width' || attributeName === 'height') {
         iframe[attributeName] = newValue + 'px';
       } else {
@@ -118,16 +118,16 @@
       var src = '';
       switch (this.type) {
         case 'follow':
-          src = '//platform.twitter.com/widgets/follow_button.html?screen_name=' + this.user;
+          src = `//platform.twitter.com/widgets/follow_button.html?screen_name=${this.user}`;
           break;
         case 'share':
-          src = '//platform.twitter.com/widgets/tweet_button.html?url=' + this.href + '&via=' + this.user + '&text=' + this.text;
+          src = `//platform.twitter.com/widgets/tweet_button.html?url=${this.href}&via=${this.user}&text=${this.text}`;
           break;
         case 'hashtag':
-          src = '//platform.twitter.com/widgets/tweet_button.html?text='+ this.text + '&button_hashtag=' + this.hashtag + '&type=hashtag';
+          src = `//platform.twitter.com/widgets/tweet_button.html?text=${this.text}&button_hashtag=${this.hashtag}&type=hashtag`;
           break;
         case 'mention':
-          src = '//platform.twitter.com/widgets/tweet_button.html?screen_name=' + this.user + '&type=mention';
+          src = `//platform.twitter.com/widgets/tweet_button.html?screen_name=${this.user}&type=mention`;
           break;
       }
       return decodeURIComponent(src);
