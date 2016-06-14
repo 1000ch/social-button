@@ -1,5 +1,7 @@
 # [`<social-button>`](http://1000ch.github.io/social-button)
 
+Social Buttons as Web Components.
+
 ## Install
 
 Using npm:
