@@ -8,114 +8,104 @@
 </template>
 
 <script>
-  window.TwitterButton = (function () {
+{
+  const currentScript = document.currentScript;
+  const ownerDocument = currentScript.ownerDocument;
 
-    const currentScript = document.currentScript;
-    const ownerDocument = currentScript.ownerDocument;
-    const TwitterButtonPrototype = Object.create(HTMLElement.prototype);
+  class TwitterButton extends HTMLElement {
+    constructor() {
+      super();
+    }
 
-    Object.defineProperty(TwitterButtonPrototype, 'width', {
-      configurable: false,
-      enumerable: false,
-      get: function () {
-        return this.getAttribute('width');
-      },
-      set: function (newValue) {
-        this.setAttribute('width', newValue);
-      }
-    });
+    get width() {
+      return this.getAttribute('width');
+    }
 
-    Object.defineProperty(TwitterButtonPrototype, 'height', {
-      configurable: false,
-      enumerable: false,
-      get: function () {
-        return this.getAttribute('height');
-      },
-      set: function (newValue) {
-        this.setAttribute('height', newValue);
-      }
-    });
+    set width(newValue) {
+      this.setAttribute('width', newValue);
+    }
 
-    Object.defineProperty(TwitterButtonPrototype, 'type', {
-      configurable: false,
-      enumerable: false,
-      get: function () {
-        return this.getAttribute('type') || '';
-      },
-      set: function (newValue) {
-        this.setAttribute('type', newValue);
-      }
-    });
+    get height() {
+      return this.getAttribute('height');
+    }
 
-    Object.defineProperty(TwitterButtonPrototype, 'hashtag', {
-      configurable: false,
-      enumerable: false,
-      get: function () {
-        return this.getAttribute('hashtag') || '';
-      },
-      set: function (newValue) {
-        this.setAttribute('hashtag', newValue);
-      }
-    });
+    set height(newValue) {
+      this.setAttribute('height', newValue);
+    }
 
-    Object.defineProperty(TwitterButtonPrototype, 'href', {
-      configurable: false,
-      enumerable: false,
-      get: function () {
-        return this.getAttribute('href') || '';
-      },
-      set: function (newValue) {
-        this.setAttribute('href', newValue);
-      }
-    });
+    get type() {
+      return this.getAttribute('type') || '';
+    }
 
-    Object.defineProperty(TwitterButtonPrototype, 'text', {
-      configurable: false,
-      enumerable: false,
-      get: function () {
-        return this.getAttribute('text') || '';
-      },
-      set: function (newValue) {
-        this.setAttribute('text', newValue);
-      }
-    });
+    set type(newValue) {
+      this.setAttribute('type', newValue);
+    }
 
-    Object.defineProperty(TwitterButtonPrototype, 'user', {
-      configurable: false,
-      enumerable: false,
-      get: function () {
-        return this.getAttribute('user') || '';
-      },
-      set: function (newValue) {
-        this.setAttribute('user', newValue);
-      }
-    });
+    get hashtag() {
+      return this.getAttribute('hashtag') || '';
+    }
 
-    TwitterButtonPrototype.createdCallback = function () {
-      this.shadowRoot = this.createShadowRoot();
+    set hashtag(newValue) {
+      this.setAttribute('hashtag', newValue);
+    }
+
+    get href() {
+      return this.getAttribute('href') || '';
+    }
+
+    set href(newValue) {
+      this.setAttribute('href', newValue);
+    }
+
+    get text() {
+      return this.getAttribute('text') || '';
+    }
+
+    set text(newValue) {
+      this.setAttribute('text', newValue);
+    }
+
+    get user() {
+      return this.getAttribute('user') || '';
+    }
+
+    set user(newValue) {
+      this.setAttribute('user', newValue);
+    }
+
+    static get observedAttributes() {
+      return ['width', 'height'];
+    }
+
+    createdCallback() {
+      this.attachShadow({ mode : 'open' });
       const template = ownerDocument.querySelector('#twitter-button-template');
       const clone = document.importNode(template.content, true);
       this.shadowRoot.appendChild(clone);
-    };
+    }
 
-    TwitterButtonPrototype.attachedCallback = function () {
+    attachedCallback() {
       const iframe = this.shadowRoot.querySelector('iframe');
-      iframe.width = this.width + 'px';
-      iframe.height = this.height + 'px';
+      iframe.width = `${this.width}px`;
+      iframe.height = `${this.height}px`;
       iframe.src = this.getInlineFrameSource();
-    };
+    }
 
-    TwitterButtonPrototype.attributeChangedCallback = function (attributeName, oldValue, newValue) {
+    attributeChangedCallback(attributeName, oldValue, newValue) {
       const iframe = this.shadowRoot.querySelector('iframe');
-      if (attributeName === 'width' || attributeName === 'height') {
-        iframe[attributeName] = newValue + 'px';
-      } else {
-        iframe.src = this.getInlineFrameSource();
+      switch (attributeName) {
+        case 'width':
+        case 'height':
+          iframe[attributeName] = `${newValue}px`;
+          break;
+        default:
+          iframe.src = this.getInlineFrameSource();
+          break;
       }
-    };
+    }
 
-    TwitterButtonPrototype.getInlineFrameSource = function () {
-      var src = '';
+    getInlineFrameSource() {
+      let src = '';
       switch (this.type) {
         case 'follow':
           src = `//platform.twitter.com/widgets/follow_button.html?screen_name=${this.user}`;
@@ -131,10 +121,9 @@
           break;
       }
       return decodeURIComponent(src);
-    };
+    }
+  }
 
-    return document.registerElement('twitter-button', {
-      prototype: TwitterButtonPrototype
-    });
-  })();
+  window.TwitterButton = document.registerElement('twitter-button', TwitterButton);
+}
 </script>

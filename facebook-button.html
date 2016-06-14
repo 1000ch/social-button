@@ -6,134 +6,120 @@
       overflow: hidden;
     }
   </style>
-  <iframe scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+  <iframe scrolling="no" frameborder="0" allowtransparency="true"></iframe>
 </template>
 
 <script>
-  window.FacebookButton = (function () {
+{
+  const currentScript = document.currentScript;
+  const ownerDocument = currentScript.ownerDocument;
 
-    const currentScript = document.currentScript;
-    const ownerDocument = currentScript.ownerDocument;
-    const FacebookButtonPrototype = Object.create(HTMLElement.prototype);
+  class FacebookButton extends HTMLElement {
+    constructor() {
+      super();
+    }
 
-    Object.defineProperty(FacebookButtonPrototype, 'width', {
-      configurable: false,
-      enumerable: false,
-      get: function () {
-        return this.getAttribute('width');
-      },
-      set: function (newValue) {
-        this.setAttribute('width', newValue);
-      }
-    });
+    get width() {
+      return this.getAttribute('width');
+    }
 
-    Object.defineProperty(FacebookButtonPrototype, 'height', {
-      configurable: false,
-      enumerable: false,
-      get: function () {
-        return this.getAttribute('height');
-      },
-      set: function (newValue) {
-        this.setAttribute('height', newValue);
-      }
-    });
+    set width(newValue) {
+      this.setAttribute('width', newValue);
+    }
 
-    Object.defineProperty(FacebookButtonPrototype, 'action', {
-      configurable: false,
-      enumerable: false,
-      get: function () {
-        return this.getAttribute('action') || '';
-      },
-      set: function (newValue) {
-        this.setAttribute('action', newValue);
-      }
-    });
+    get height() {
+      return this.getAttribute('height');
+    }
 
-    Object.defineProperty(FacebookButtonPrototype, 'colorscheme', {
-      configurable: false,
-      enumerable: false,
-      get: function () {
-        return this.getAttribute('colorscheme') || '';
-      },
-      set: function (newValue) {
-        this.setAttribute('colorscheme', newValue);
-      }
-    });
+    set height(newValue) {
+      this.setAttribute('height', newValue);
+    }
 
-    Object.defineProperty(FacebookButtonPrototype, 'href', {
-      configurable: false,
-      enumerable: false,
-      get: function () {
-        return this.getAttribute('href') || '';
-      },
-      set: function (newValue) {
-        this.setAttribute('href', newValue);
-      }
-    });
+    get action() {
+      return this.getAttribute('action') || '';
+    }
 
-    Object.defineProperty(FacebookButtonPrototype, 'font', {
-      configurable: false,
-      enumerable: false,
-      get: function () {
-        return this.getAttribute('font') || '';
-      },
-      set: function (newValue) {
-        this.setAttribute('font', newValue);
-      }
-    });
+    set action(newValue) {
+      this.setAttribute('action', newValue);
+    }
 
-    Object.defineProperty(FacebookButtonPrototype, 'layout', {
-      configurable: false,
-      enumerable: false,
-      get: function () {
-        return this.getAttribute('layout');
-      },
-      set: function (newValue) {
-        this.setAttribute('layout', newValue);
-      }
-    });
+    get colorscheme() {
+      return this.getAttribute('colorscheme') || '';
+    }
 
-    Object.defineProperty(FacebookButtonPrototype, 'showfaces', {
-      configurable: false,
-      enumerable: false,
-      get: function () {
-        return this.getAttribute('showfaces') || '';
-      },
-      set: function (newValue) {
-        this.setAttribute('showfaces', newValue);
-      }
-    });
+    set colorscheme(newValue) {
+      this.setAttribute('colorscheme', newValue);
+    }
 
-    FacebookButtonPrototype.createdCallback = function () {
-      this.shadowRoot = this.createShadowRoot();
+    get href() {
+      return this.getAttribute('href') || '';
+    }
+
+    set href(newValue) {
+      this.setAttribute('href', newValue);
+    }
+
+    get font() {
+      return this.getAttribute('font') || '';
+    }
+
+    set font(newValue) {
+      this.setAttribute('font', newValue);
+    }
+
+    get layout() {
+      return this.getAttribute('layout');
+    }
+
+    set layout(newValue) {
+      this.setAttribute('layout', newValue);
+    }
+
+    get showfaces() {
+      return this.getAttribute('showfaces') || '';
+    }
+
+    set showfaces(newValue) {
+      this.setAttribute('showfaces', newValue);
+    }
+
+    static get observedAttributes() {
+      return ['width', 'height'];
+    }
+
+    createdCallback() {
+      this.attachShadow({ mode : 'open' });
       const template = ownerDocument.querySelector('#facebook-button-template');
       const clone = document.importNode(template.content, true);
       this.shadowRoot.appendChild(clone);
-    };
+    }
 
-    FacebookButtonPrototype.attachedCallback = function () {
+    attachedCallback() {
       const iframe = this.shadowRoot.querySelector('iframe');
       iframe.width = `${this.width}px`;
       iframe.height = `${this.height}px`;
       iframe.src = this.getInlineFrameSource();
-    };
+    }
 
-    FacebookButtonPrototype.attributeChangedCallback = function (attributeName, oldValue, newValue) {
+    attributeChangedCallback(attributeName, oldValue, newValue) {
       const iframe = this.shadowRoot.querySelector('iframe');
-      if (attributeName === 'width' || attributeName === 'height') {
-        iframe[attributeName] = newValue + 'px';
-      } else {
-        iframe.src = this.getInlineFrameSource();
+      switch (attributeName) {
+        case 'width':
+        case 'height':
+          iframe[attributeName] = `${newValue}px`;
+          break;
+        default:
+          iframe.src = this.getInlineFrameSource();
+          break;
       }
-    };
+    }
 
-    FacebookButtonPrototype.getInlineFrameSource = function () {
+    getInlineFrameSource() {
       const src = `//www.facebook.com/plugins/like.php?href=${this.href}&send=false&layout=${this.layout}&amp;width=${this.width}&height=${this.height}` + `&show_faces=${this.showfaces}&font=${this.font}&colorscheme=${this.colorscheme}&action=${this.action}`;
       return decodeURIComponent(src);
-    };
+    }
+  }
 
-    return document.registerElement('facebook-button', {
-      prototype: FacebookButtonPrototype
-    });
-  })();
+  window.FacebookButton = document.registerElement('facebook-button', FacebookButton);
+}
 </script>

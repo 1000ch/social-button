@@ -1,80 +1,68 @@
 <script src="//apis.google.com/js/plusone.js" async></script>
 
 <script>
-  window.GooglePlusFollow = (function () {
+{
+  const currentScript = document.currentScript;
+  const ownerDocument = currentScript.ownerDocument;
 
-    const currentScript = document.currentScript;
-    const ownerDocument = currentScript.ownerDocument;
-    const GooglePlusFollowPrototype = Object.create(HTMLElement.prototype);
+  class GooglePlusFollow extends HTMLElement {
+    constructor() {
+      super();
+    }
 
-    Object.defineProperty(GooglePlusFollowPrototype, 'width', {
-      configurable: false,
-      enumerable: false,
-      get: function () {
-        return this.getAttribute('width') || 300;
-      },
-      set: function (newValue) {
-        this.setAttribute('width', newValue);
-      }
-    });
+    get width() {
+      return this.getAttribute('width') || 300;
+    }
 
-    Object.defineProperty(GooglePlusFollowPrototype, 'height', {
-      configurable: false,
-      enumerable: false,
-      get: function () {
-        return this.getAttribute('height') || 20;
-      },
-      set: function (newValue) {
-        this.setAttribute('height', newValue);
-      }
-    });
+    set width(newValue) {
+      this.setAttribute('width', newValue);
+    }
 
-    Object.defineProperty(GooglePlusFollowPrototype, 'annotation', {
-      configurable: false,
-      enumerable: false,
-      get: function () {
-        return this.getAttribute('annotation') || 'bubble';
-      },
-      set: function (newValue) {
-        this.setAttribute('annotation', newValue);
-      }
-    });
+    get height() {
+      return this.getAttribute('height') || 20;
+    }
 
-    Object.defineProperty(GooglePlusFollowPrototype, 'href', {
-      configurable: false,
-      enumerable: false,
-      get: function () {
-        return this.getAttribute('href') || '';
-      },
-      set: function (newValue) {
-        this.setAttribute('href', newValue);
-      }
-    });
+    set height(newValue) {
+      this.setAttribute('height', newValue);
+    }
 
-    Object.defineProperty(GooglePlusFollowPrototype, 'size', {
-      configurable: false,
-      enumerable: false,
-      get: function () {
-        return this.getAttribute('size') || 'standard';
-      },
-      set: function (newValue) {
-        this.setAttribute('size', newValue);
-      }
-    });
+    get annotation() {
+      return this.getAttribute('annotation') || 'bubble';
+    }
 
-    Object.defineProperty(GooglePlusFollowPrototype, 'rel', {
-      configurable: false,
-      enumerable: false,
-      get: function () {
-        return this.getAttribute('rel') || '';
-      },
-      set: function (newValue) {
-        this.setAttribute('rel', newValue);
-      }
-    });
+    set annotation(newValue) {
+      this.setAttribute('annotation', newValue);
+    }
 
-    GooglePlusFollowPrototype.createdCallback = function () {
+    get href() {
+      return this.getAttribute('href') || '';
+    }
 
+    set href(newValue) {
+      this.setAttribute('href', newValue);
+    }
+
+    get size() {
+      return this.getAttribute('size') || 'standard';
+    }
+
+    set size(newValue) {
+      this.setAttribute('size', newValue);
+    }
+
+    get rel() {
+      return this.getAttribute('rel') || '';
+    }
+
+    set rel(newValue) {
+      this.setAttribute('rel', newValue);
+    }
+
+    static get observedAttributes() {
+      return ['width', 'height', 'annotation', 'href', 'size', 'rel'];
+    }
+
+    createdCallback() {
       const div = document.createElement('div');
       div.className = 'g-follow';
       div.setAttribute('data-annotation', this.annotation);
@@ -83,17 +71,14 @@
       div.setAttribute('data-size', this.size);
       div.setAttribute('data-width', this.width);
       div.setAttribute('data-height', this.height);
-
       this.appendChild(div);
-    };
+    }
 
-    GooglePlusFollowPrototype.attributeChangedCallback = function (attributeName, oldValue, newValue) {
-      const div = this.querySelector('div');
-      div.setAttribute(`data-${attributeName}`, newValue);
-    };
+    attributeChangedCallback(attributeName, oldValue, newValue) {
+      this.querySelector('div').setAttribute(`data-${attributeName}`, newValue);
+    }
+  }
 
-    return document.registerElement('gplus-follow', {
-      prototype: GooglePlusFollowPrototype
-    });
-  })();
+  window.GooglePlusFollow = document.registerElement('gplus-follow', GooglePlusFollow);
+}
 </script>
