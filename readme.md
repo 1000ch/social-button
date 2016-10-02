@@ -1,4 +1,4 @@
-# [`<social-button>`](http://1000ch.github.io/social-button)
+# [`<social-button>`](https://1000ch.github.io/social-button/)
 
 Social Buttons as Web Components.
 
@@ -49,7 +49,7 @@ Or you can load custom elements individually.
 ## Twitter Button
 
 ```html
-<twitter-button>
+<twitter-button></twitter-button>
 ```
 
 - `type` **follow** / **share** / **hashtag** / **mention**
@@ -62,7 +62,7 @@ Or you can load custom elements individually.
 ## Facebook Button
 
 ```html
-<facebook-button>
+<facebook-button></facebook-button>
 ```
 
 - `layout` **standard** / **box_count**
@@ -73,7 +73,7 @@ Or you can load custom elements individually.
 ## Google Plus One
 
 ```html
-<gplus-one>
+<gplus-one></gplus-one>
 ```
 
 - `href` URL to plus one.
@@ -81,7 +81,7 @@ Or you can load custom elements individually.
 ## Google Plus Follow
 
 ```html
-<gplus-follow>
+<gplus-follow></gplus-follow>
 ```
 
 - `href` URL to follow.
