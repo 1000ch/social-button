@@ -1,6 +1,5 @@
 {
   "name": "social-button",
-  "version": "0.1.0",
   "authors": [
     "1000ch <shogo.sensui@gmail.com>"
   ],
@@ -11,7 +10,7 @@
     "WebComponents"
   ],
   "license": "MIT",
-  "homepage": "http://github.com/1000ch/social-button",
+  "homepage": "https://github.com/1000ch/social-button",
   "ignore": [
     "**/.*",
     "node_modules",
