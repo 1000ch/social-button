@@ -15,6 +15,35 @@
   class TwitterButton extends HTMLElement {
     constructor() {
       super();
+
+      this.attachShadow({ mode : 'open' });
+      const template = ownerDocument.querySelector('#twitter-button-template');
+      const clone = document.importNode(template.content, true);
+      this.shadowRoot.appendChild(clone);
+    }
+
+    static get observedAttributes() {
+      return ['width', 'height'];
+    }
+
+    connectedCallback() {
+      const iframe = this.shadowRoot.querySelector('iframe');
+      iframe.width = `${this.width}px`;
+      iframe.height = `${this.height}px`;
+      iframe.src = this.getInlineFrameSource();
+    }
+
+    attributeChangedCallback(attributeName, oldValue, newValue) {
+      const iframe = this.shadowRoot.querySelector('iframe');
+      switch (attributeName) {
+        case 'width':
+        case 'height':
+          iframe[attributeName] = `${newValue}px`;
+          break;
+        default:
+          iframe.src = this.getInlineFrameSource();
+          break;
+      }
     }
 
     get width() {
@@ -73,37 +102,6 @@
       this.setAttribute('user', newValue);
     }
 
-    static get observedAttributes() {
-      return ['width', 'height'];
-    }
-
-    createdCallback() {
-      this.attachShadow({ mode : 'open' });
-      const template = ownerDocument.querySelector('#twitter-button-template');
-      const clone = document.importNode(template.content, true);
-      this.shadowRoot.appendChild(clone);
-    }
-
-    attachedCallback() {
-      const iframe = this.shadowRoot.querySelector('iframe');
-      iframe.width = `${this.width}px`;
-      iframe.height = `${this.height}px`;
-      iframe.src = this.getInlineFrameSource();
-    }
-
-    attributeChangedCallback(attributeName, oldValue, newValue) {
-      const iframe = this.shadowRoot.querySelector('iframe');
-      switch (attributeName) {
-        case 'width':
-        case 'height':
-          iframe[attributeName] = `${newValue}px`;
-          break;
-        default:
-          iframe.src = this.getInlineFrameSource();
-          break;
-      }
-    }
-
     getInlineFrameSource() {
       let src = '';
       switch (this.type) {
@@ -124,6 +122,6 @@
     }
   }
 
-  window.TwitterButton = document.registerElement('twitter-button', TwitterButton);
+  customElements.define('twitter-button', TwitterButton);
 }
 </script>

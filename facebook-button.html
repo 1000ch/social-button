@@ -17,6 +17,35 @@
   class FacebookButton extends HTMLElement {
     constructor() {
       super();
+
+      this.attachShadow({ mode : 'open' });
+      const template = ownerDocument.querySelector('#facebook-button-template');
+      const clone = document.importNode(template.content, true);
+      this.shadowRoot.appendChild(clone);
+    }
+
+    static get observedAttributes() {
+      return ['width', 'height'];
+    }
+
+    connectedCallback() {
+      const iframe = this.shadowRoot.querySelector('iframe');
+      iframe.width = `${this.width}px`;
+      iframe.height = `${this.height}px`;
+      iframe.src = this.getInlineFrameSource();
+    }
+
+    attributeChangedCallback(attributeName, oldValue, newValue) {
+      const iframe = this.shadowRoot.querySelector('iframe');
+      switch (attributeName) {
+        case 'width':
+        case 'height':
+          iframe[attributeName] = `${newValue}px`;
+          break;
+        default:
+          iframe.src = this.getInlineFrameSource();
+          break;
+      }
     }
 
     get width() {
@@ -83,43 +112,12 @@
       this.setAttribute('showfaces', newValue);
     }
 
-    static get observedAttributes() {
-      return ['width', 'height'];
-    }
-
-    createdCallback() {
-      this.attachShadow({ mode : 'open' });
-      const template = ownerDocument.querySelector('#facebook-button-template');
-      const clone = document.importNode(template.content, true);
-      this.shadowRoot.appendChild(clone);
-    }
-
-    attachedCallback() {
-      const iframe = this.shadowRoot.querySelector('iframe');
-      iframe.width = `${this.width}px`;
-      iframe.height = `${this.height}px`;
-      iframe.src = this.getInlineFrameSource();
-    }
-
-    attributeChangedCallback(attributeName, oldValue, newValue) {
-      const iframe = this.shadowRoot.querySelector('iframe');
-      switch (attributeName) {
-        case 'width':
-        case 'height':
-          iframe[attributeName] = `${newValue}px`;
-          break;
-        default:
-          iframe.src = this.getInlineFrameSource();
-          break;
-      }
-    }
-
     getInlineFrameSource() {
       const src = `//www.facebook.com/plugins/like.php?href=${this.href}&send=false&layout=${this.layout}&amp;width=${this.width}&height=${this.height}` + `&show_faces=${this.showfaces}&font=${this.font}&colorscheme=${this.colorscheme}&action=${this.action}`;
       return decodeURIComponent(src);
     }
   }
 
-  window.FacebookButton = document.registerElement('facebook-button', FacebookButton);
+  customElements.define('facebook-button', FacebookButton);
 }
 </script>
