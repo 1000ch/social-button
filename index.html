@@ -14,7 +14,17 @@
       a code { color: #199ad5 !important; }
       a:hover code, a:active code { color: #e2007a !important; }
     </style>
-    <link rel="import" href="social-button.html">
+    <script type="module">
+      import TwitterButton from './twitter-button.js';
+      import FacebookButton from './facebook-button.js';
+      import GooglePlusFollow from './gplus-follow.js';
+      import GooglePlusOne from './gplus-one.js';
+
+      customElements.define('twitter-button', TwitterButton);
+      customElements.define('facebook-button', FacebookButton);
+      customElements.define('gplus-follow', GooglePlusFollow);
+      customElements.define('gplus-one', GooglePlusOne);
+    </script>
   </head>
   <body>
     <div class="container">
@@ -29,14 +39,17 @@ $ npm install social-button
 # via bower
 $ bower install social-button</code></pre>
       <h2>Usage</h2>
-      <p>Import <code>social-button.html</code>.</p>
-      <pre><code class="html">&lt;link rel=&quot;import&quot; href=&quot;social-button.html&quot;&gt;</code></pre>
+      <p>Import components which you want to use.</p>
+      <pre><code class="html">&lt;script type=&quot;module&quot; src=&quot;twitter-button.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;module&quot; src=&quot;facebook-button.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;module&quot; src=&quot;gplus-follow.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;module&quot; src=&quot;gplus-one.js&quot;&gt;&lt;/script&gt;</code></pre>
       <h2>Twitter Button</h2>
-      <twitter-button type="follow" width="200" height="30" user="1000ch"></twitter-button>
+      <twitter-button type="follow" width="220" height="30" user="1000ch"></twitter-button>
       <twitter-button type="share" width="80" height="30" user="1000ch" href="https://github.com/1000ch/social-button" text="Social Button as Web Components"></twitter-button>
       <twitter-button type="hashtag" width="160" height="30" text="Social Button as Web Components" hashtag="webcomponents"></twitter-button>
       <twitter-button type="mention" width="120" height="30" user="1000ch"></twitter-button>
-      <pre><code class="html">&lt;twitter-button type=&quot;follow&quot; width=&quot;200&quot; height=&quot;30&quot; user=&quot;1000ch&quot;&gt;&lt;/twitter-button&gt;
+      <pre><code class="html">&lt;twitter-button type=&quot;follow&quot; width=&quot;220&quot; height=&quot;30&quot; user=&quot;1000ch&quot;&gt;&lt;/twitter-button&gt;
 &lt;twitter-button type=&quot;share&quot; width=&quot;80&quot; height=&quot;30&quot; user=&quot;1000ch&quot; href=&quot;https://github.com/1000ch/social-button&quot; text=&quot;Social Button as Web Components&quot;&gt;&lt;/twitter-button&gt;
 &lt;twitter-button type=&quot;hashtag&quot; width=&quot;160&quot; height=&quot;30&quot; text=&quot;Social Button as Web Components&quot; hashtag=&quot;webcomponents&quot;&gt;&lt;/twitter-button&gt;
 &lt;twitter-button type=&quot;mention&quot; width=&quot;120&quot; height=&quot;30&quot; user=&quot;1000ch&quot;&gt;&lt;/twitter-button&gt;</code></pre>
