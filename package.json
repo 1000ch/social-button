@@ -8,6 +8,8 @@
     "twitter",
     "facebook"
   ],
+  "main": "dist/index.js",
+  "module": "dist/index.js",
   "author": {
     "name": "Shogo Sensui",
     "email": "shogosensui@gmail.com",
