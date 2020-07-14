@@ -16,11 +16,11 @@ Import and register scripts.
 
 ```html
 <script type="module">
-  import TwitterButton from './twitter-button.js';
-  import FacebookButton from './facebook-button.js';
+import TwitterButton from './twitter-button.js';
+import FacebookButton from './facebook-button.js';
 
-  customElements.define('twitter-button', TwitterButton);
-  customElements.define('facebook-button', FacebookButton);
+customElements.define('twitter-button', TwitterButton);
+customElements.define('facebook-button', FacebookButton);
 </script>
 ```
 
