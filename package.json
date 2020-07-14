@@ -5,7 +5,8 @@
   "repository": "1000ch/social-button",
   "keywords": [
     "web-components",
-    "WebComponents"
+    "twitter",
+    "facebook"
   ],
   "author": {
     "name": "Shogo Sensui",
@@ -16,5 +17,33 @@
   "bugs": {
     "url": "https://github.com/1000ch/social-button/issues"
   },
-  "homepage": "https://github.com/1000ch/social-button"
+  "homepage": "https://github.com/1000ch/social-button",
+  "scripts": {
+    "build": "tsc",
+    "prepublish": "npm run build",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.4",
+    "jest": "^26.1.0",
+    "ts-jest": "^26.1.2",
+    "typescript": "^3.9.6"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "ts"
+    ],
+    "transform": {
+      "^.+\\.ts$": "ts-jest"
+    },
+    "globals": {
+      "ts-jest": {
+        "tsConfig": "tsconfig.json"
+      }
+    },
+    "testMatch": [
+      "**/test/*.test.ts"
+    ]
+  }
 }
