@@ -1,4 +1,4 @@
-# `<social-button>`
+# social-button [![devDependency Status](https://david-dm.org/1000ch/social-button/dev-status.svg)](https://david-dm.org/1000ch/social-button?type=dev)
 
 Social Buttons as Web Components.
 
