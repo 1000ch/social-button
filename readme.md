@@ -16,8 +16,8 @@ Import and register scripts.
 
 ```html
 <script type="module">
-import TwitterButton from './twitter-button.js';
-import FacebookButton from './facebook-button.js';
+import TwitterButton from 'https://unpkg.com/social-button/dist/twitter-button.js';
+import FacebookButton from 'https://unpkg.com/social-button/dist/facebook-button.js';
 
 customElements.define('twitter-button', TwitterButton);
 customElements.define('facebook-button', FacebookButton);
