@@ -1,3 +1,5 @@
+🚨 Please use [`twitter-button`](https://github.com/1000ch/twitter-button) and [`facebook-button`](https://github.com/1000ch/facebook-button) instead.
+
 # social-button [![devDependency Status](https://david-dm.org/1000ch/social-button/dev-status.svg)](https://david-dm.org/1000ch/social-button?type=dev)
 
 Social Buttons as Web Components.
